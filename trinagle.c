@@ -143,11 +143,11 @@ int bruteForceTriangle(int **triangle, int num, int path[]){
 
 
 int recursiveTriangle(int **triangle, int n, int a, int b){
-	if(a == n)return triangle[a][b];
-	int left = recursiveTriangle(triangle, n, a+1, b);
-	int right = recursiveTriangle(triangle, n, a+1, b+1);
-	if(left>right) return triangle[a][b]+left;
-	return triangle[a][b]+right;
+	if(a == n)return triangle[a][b]; //if we are at the bottom of the triangle
+	int left = recursiveTriangle(triangle, n, a+1, b); // getting value for left
+	int right = recursiveTriangle(triangle, n, a+1, b+1); // getting value for right
+	if(left>right) return triangle[a][b]+left; // returns the sum of the current position in the triangle and left
+	return triangle[a][b]+right; // returns the sum of the current position in the triangle and right
 }
 
 
