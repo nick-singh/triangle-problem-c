@@ -152,12 +152,12 @@ int recursiveTriangle(int **triangle, int n, int a, int b){
 
 
 int recursiveMemTriangle(int **triangle, int **memArray, int n, int a, int b){
-	if(a == n)return memArray[a][b]  = triangle[a][b];
-	if(memArray[a][b] != -1)return memArray[a][b];
-	int left = recursiveMemTriangle(triangle,memArray,n, a+1, b);
-	int right = recursiveMemTriangle(triangle,memArray, n, a+1, b+1);
-	if(left>right) return memArray[a][b] = triangle[a][b]+left;	
-	return memArray[a][b] = triangle[a][b]+right;		
+	if(a == n)return memArray[a][b]  = triangle[a][b]; // we are at the bottom of the triangle
+	if(memArray[a][b] != -1)return memArray[a][b]; // if we have already visited this position
+	int left = recursiveMemTriangle(triangle,memArray,n, a+1, b); // getting value for left
+	int right = recursiveMemTriangle(triangle,memArray, n, a+1, b+1); // getting value for right
+	if(left>right) return memArray[a][b] = triangle[a][b]+left;	// returns the sum of the current position in the triangle and left
+	return memArray[a][b] = triangle[a][b]+right; // returns the sum of the current position in the triangle and right
 }
 
 
