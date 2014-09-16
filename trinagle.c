@@ -47,7 +47,8 @@ void initBinArray(int [],int);
 *******************************************************************/
 int pow2(int,int);
 void numToBinary(int [], int, int);
-void printPath(int**, int[], int, int);
+void printPath(FILE*,int**, int[], int, int);
+void printMem(FILE*,int **, int);
 
 
 
@@ -69,6 +70,7 @@ int main()// start main
 
 	//reads input and stores in a FILE pointer in
 	FILE*in = fopen("input.txt","r");
+	FILE*out = fopen("output.txt","w");
 	if(in == NULL) printf("error reaind file\n"); // if there is an error reading the file
 	
 	// variables used to store solutions from differnt methods
@@ -85,23 +87,26 @@ int main()// start main
 
 	// Function to compute the best sum using the brute force method
 	bruteForceSol = bruteForceTriangle(arr,n-1,bruteForcePath);	
-	printf("brute froce method %d\n", bruteForceSol);
+	fprintf(out,"brute froce method %d\n", bruteForceSol);
 	// printPath(arr,bruteForcePath,bruteForceSol,n-1);
 
 
 	// Function to compute the best sum using simple recursion
 	recursionSol = recursiveTriangle(arr,n-1,0,0);
-	printf("using recursion %d\n", recursionSol);
+	fprintf(out,"using recursion %d\n", recursionSol);
 
 	// Function to compute the best sum using memorized recursion
 	memRecursionSol = recursiveMemTriangle(arr, memArray, n-1, 0,0);
-	printf("using memoized recursion %d\n", memRecursionSol);
+	fprintf(out,"Using memoized recursion best sum = %d, with path: \n", memRecursionSol);
+	printMem(out,memArray, n-1);
 
 	// Function to compute the best sum using dynamic programming
 	dpSol =	dpTriangle(arr,memArrayDp, n-1);
-	printf("using dynamic programming %d\n", dpSol);
+	fprintf(out,"Using dynamic programming best sum = %d, with path: \n", dpSol);
+	printMem(out, arr, n-1);
 
-	
+	fclose(in);
+	fclose(out);
 	return 0;
 }// end main
 
@@ -146,8 +151,14 @@ int recursiveTriangle(int **triangle, int n, int a, int b){
 	if(a == n)return triangle[a][b]; //if we are at the bottom of the triangle
 	int left = recursiveTriangle(triangle, n, a+1, b); // getting value for left
 	int right = recursiveTriangle(triangle, n, a+1, b+1); // getting value for right
-	if(left>right) return triangle[a][b]+left; // returns the sum of the current position in the triangle and left
-	return triangle[a][b]+right; // returns the sum of the current position in the triangle and right
+	if(left>right){
+		// fprintf(out,"%d\n", 0);
+		return triangle[a][b]+left; // returns the sum of the current position in the triangle and left	
+	}else{
+		// fprintf(out,"%d\n", 0);
+		return triangle[a][b]+right; // returns the sum of the current position in the triangle and right	
+	} 
+	
 }
 
 
@@ -247,16 +258,40 @@ void numToBinary(int arr[], int size,int num){
 
 
 
-void printPath(int **tri, int path[], int sol, int size){
+void printPath(FILE *out,int **tri, int path[], int sol, int size){
 	int i = 0,j, a=0, b=0;
 	
 	for(j = 0; j < size; j++){
 		if (path[j] == 0)
 		{
-			printf("Left ");
+			fprintf(out,"Left ");
 		}else{
-			printf("Right ");
+			fprintf(out,"Right ");
 		}
 	}	
-	printf("\n");
+	fprintf(out,"\n");
+}
+
+
+void printMem(FILE *out, int **mem, int size){
+	int a = 0, i = 0, j = 0;	
+	while(a<size){
+		if(mem[i+1][j] > mem[i+1][j+1]){
+			if(a<size-1){
+				fprintf(out,"Left ->");
+			}else{
+				fprintf(out,"Left\n");
+			}
+			i++;
+		}else{
+			if(a<size-1){
+				fprintf(out,"Right ->");
+			}else{
+				fprintf(out,"Right\n");
+			}
+			j++;
+			i++;
+		}
+		a++;
+	}
 }
