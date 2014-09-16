@@ -1,8 +1,6 @@
 /*******************************************************************
 
-	Name	: Nicholas Chamansingh
-	ID 		: 809002243
-	Course	: Comp6401
+	Name	: Nicholas Chamansingh	
 
 
 	Problem : Triangle Problem...
