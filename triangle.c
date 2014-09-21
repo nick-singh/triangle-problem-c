@@ -293,4 +293,4 @@ void printMem(FILE *out, int **mem, int size){
 		a++;
 	}
 }
-//s-sooklal
+
