@@ -19,10 +19,6 @@
 
 ********************************************************************/
 
-
-
-
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -142,7 +138,7 @@ int bruteForceTriangle(int **triangle, int num, int path[]){
 		i++;
 	}
 	return m;
-}
+}// end brute force
 
 
 int recursiveTriangle(int **triangle, int n, int a, int b){
