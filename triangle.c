@@ -99,8 +99,8 @@ int main()// start main
 	fprintf(out,"Using dynamic programming best sum = %d, with path: \n", dpSol);
 	printMem(out, arr, n-1);
 
-	fclose(in);
-	fclose(out);
+	fclose(in);// close in
+	fclose(out);// close out
 	return 0;
 }// end main
 
