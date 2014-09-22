@@ -153,7 +153,7 @@ int recursiveTriangle(int **triangle, int n, int a, int b){
 		return triangle[a][b]+right; // returns the sum of the current position in the triangle and right	
 	} 
 	
-}
+} //end recursion
 
 
 int recursiveMemTriangle(int **triangle, int **memArray, int n, int a, int b){
